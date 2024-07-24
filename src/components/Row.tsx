@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import Modal from 'react-modal';
 import { ReceiveModal } from './ReceiveModal';
 import { SendModal } from './SendModal';
-
-Modal.setAppElement('#root');
 
 interface RowProps {
   balance: number;

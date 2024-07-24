@@ -1,27 +1,36 @@
 # Crypto Manager Dashboard
+
 This project is a simple dashboard to manage cryptocurrencies using React and Tailwind CSS. The app shows balances of different blockchains and provides functionalities to send and receive funds.
 
 ## Features
+
 Display balances of different blockchains.
 Send funds via a form modal.
 Receive funds by copying the address to the clipboard through a modal.
+
 ## Screenshots
+
 ### Main Dashboard
+
 ![alt text](image.png)
 
 ### Receive Modal
+
 ![alt text](image-1.png)
 
 ### Send Modal
+
 ![alt text](image-2.png)
 
 ## Installation
+
 1. Clone the repository:
 
 ```sh
 git clone https://github.com/juanfril/crypto-manager.git
 cd crypto-manager
 ```
+
 2. Install dependencies:
 
 ```sh
@@ -37,6 +46,7 @@ npm run start
 4. Open the app in your browser at http://localhost:3000.
 
 ## Usage
+
 On the main dashboard, view the balances of different blockchains.
 Click on the "Send" button to open a modal with a form to send funds.
 Click on the "Receive" button to open a modal to copy the address to the clipboard.
@@ -91,4 +101,5 @@ npm run format
 ```
 
 ## License
+
 This project is licensed under the MIT License.

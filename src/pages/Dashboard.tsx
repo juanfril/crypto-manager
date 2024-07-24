@@ -24,9 +24,9 @@ export const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {balances.map((balance) => (
+          {balances.map((balance, index) => (
             <Row
-              key={balance.blockchain}
+              key={index}
               balance={balance.balance}
               ticker={balance.ticker}
               address={balance.address}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Row } from '../Row';
 
@@ -49,51 +49,71 @@ describe('Row component', () => {
   const balance = 1000;
   const blockChain = 'AVAX';
   const address = '0x123456789abcdef';
-  const ticker = 'AVAX';
+  const ticker = 'USDC';
 
-  beforeAll(() => {
-    // Create a div element with id 'root'
-    const root = document.createElement('div');
-    root.setAttribute('id', 'root');
-    document.body.appendChild(root);
-  });
+  test('renders the Row component with correct data', () => {
+    render(
+      <Row
+        balance={balance}
+        blockChain={blockChain}
+        address={address}
+        ticker={ticker}
+      />,
+    );
 
-  afterAll(() => {
-    // Clean up the div element with id 'root'
-    const root = document.getElementById('root');
-    if (root) {
-      document.body.removeChild(root);
+    const row = screen.getByText(balance.toString()).closest('tr');
+    expect(row).toBeInTheDocument();
+
+    if (row) {
+      const utils = within(row);
+      expect(utils.getByText(blockChain)).toBeInTheDocument();
+      expect(utils.getByText(ticker)).toBeInTheDocument();
+      expect(utils.getByText(balance.toString())).toBeInTheDocument();
+      expect(utils.getByText('Send')).toBeInTheDocument();
+      expect(utils.getByText('Receive')).toBeInTheDocument();
     }
   });
 
-  test('renders the Row component with correct data', () => {
-    render(<Row balance={balance} blockChain={blockChain} address={address} ticker={ticker} />);
-    
-    expect(screen.getByText(blockChain)).toBeInTheDocument();
-    expect(screen.getByText(ticker)).toBeInTheDocument();
-    expect(screen.getByText(balance.toString())).toBeInTheDocument();
-    expect(screen.getByText('Send')).toBeInTheDocument();
-    expect(screen.getByText('Receive')).toBeInTheDocument();
-  });
-
   test('opens and closes the Receive Modal', () => {
-    render(<Row balance={balance} blockChain={blockChain} address={address} ticker={ticker} />);
-    
-    fireEvent.click(screen.getByText('Receive'));
-    expect(screen.getByTestId('receive-modal')).toBeInTheDocument();
-    expect(screen.getByText(address)).toBeInTheDocument();
+    render(
+      <Row
+        balance={balance}
+        blockChain={blockChain}
+        address={address}
+        ticker={ticker}
+      />,
+    );
 
-    fireEvent.click(screen.getByText('Close'));
-    expect(screen.queryByTestId('receive-modal')).not.toBeInTheDocument();
+    const row = screen.getByText(balance.toString()).closest('tr');
+    if (row) {
+      const utils = within(row);
+      fireEvent.click(utils.getByText('Receive'));
+      expect(screen.getByTestId('receive-modal')).toBeInTheDocument();
+      expect(screen.getByText(address)).toBeInTheDocument();
+
+      fireEvent.click(screen.getByText('Close'));
+      expect(screen.queryByTestId('receive-modal')).not.toBeInTheDocument();
+    }
   });
 
   test('opens and closes the Send Modal', () => {
-    render(<Row balance={balance} blockChain={blockChain} address={address} ticker={ticker} />);
-    
-    fireEvent.click(screen.getByText('Send'));
-    expect(screen.getByTestId('send-modal')).toBeInTheDocument();
+    render(
+      <Row
+        balance={balance}
+        blockChain={blockChain}
+        address={address}
+        ticker={ticker}
+      />,
+    );
 
-    fireEvent.click(screen.getByText('Close'));
-    expect(screen.queryByTestId('send-modal')).not.toBeInTheDocument();
+    const row = screen.getByText(balance.toString()).closest('tr');
+    if (row) {
+      const utils = within(row);
+      fireEvent.click(utils.getByText('Send'));
+      expect(screen.getByTestId('send-modal')).toBeInTheDocument();
+
+      fireEvent.click(screen.getByText('Close'));
+      expect(screen.queryByTestId('send-modal')).not.toBeInTheDocument();
+    }
   });
 });
