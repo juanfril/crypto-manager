@@ -1,0 +1,10 @@
+node_modules/
+build/
+out/
+coverage/
+**/__tests__/**
+postcss.config.js
+tailwind.config.js
+commitlint.config.js
+config-overrides.js
+cypress/
